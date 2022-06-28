@@ -9,7 +9,13 @@ class Constants {
 	val coreJniVersion : Float
 		get() = nativeGetJniVersion()
 
+	val openCVVersion : String
+		get() = nativeGetOpenCVVersion()
+
 	@Keep
 	private external fun nativeGetJniVersion() : Float
+
+	@Keep
+	private external fun nativeGetOpenCVVersion() : String
 
 }

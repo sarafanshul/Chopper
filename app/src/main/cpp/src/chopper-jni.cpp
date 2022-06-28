@@ -1,6 +1,5 @@
 #include "chopper-jni.h"
-
-
+#include "opencv2/core/version.hpp"
 
 jint JNI_OnLoad(JavaVM *vm, void *reserved){
 

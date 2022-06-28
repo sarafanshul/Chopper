@@ -1,5 +1,6 @@
 package com.projectdelta.chopper.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.projectdelta.chopper.databinding.ActivityMainBinding
 import com.projectdelta.chopper.ui.base.BaseViewBindingActivity
@@ -11,6 +12,7 @@ import timber.log.Timber
 class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
 
 
+	@SuppressLint("SetTextI18n")
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -18,7 +20,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
 		setContentView(binding.root)
 
 		// Example of a call to a native method
-		binding.sampleText.text = Constants().coreJniVersion.toString()
+		binding.sampleText.text = Constants().coreJniVersion.toString() + "  " + Constants().openCVVersion
 
 	}
 

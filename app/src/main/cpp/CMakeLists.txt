@@ -9,6 +9,30 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("chopper")
 
+# configure opencv.
+set(OPENCV_DIRS ${CMAKE_SOURCE_DIR}/opencv)
+
+include_directories(${OPENCV_DIRS}/include)
+
+set(
+        # List variable name
+        opencv_libs_names
+        # Values in the list
+        opencv_core opencv_dnn opencv_highgui opencv_imgcodecs opencv_imgproc opencv_ml
+)
+
+foreach (opencv_libs_name ${opencv_libs_names})
+    add_library(
+            ${opencv_libs_name}
+            SHARED
+            IMPORTED)
+    set_target_properties(
+            ${opencv_libs_name}
+            PROPERTIES
+            IMPORTED_LOCATION
+            ${OPENCV_DIRS}/lib/${ANDROID_ABI}/lib${opencv_libs_name}.so)
+endforeach ()
+
 # Automatically all files in a directory to a target
 file (GLOB_RECURSE CHOPPER_SRCS CONFIGURE_DEPENDS
     "src/*.cpp"
@@ -51,4 +75,8 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib})
+        ${log-lib}
+
+        #opencv
+        ${opencv_libs_names}
+)

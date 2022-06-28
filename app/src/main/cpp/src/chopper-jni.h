@@ -8,6 +8,7 @@
 #include <jni.h>
 #include <string>
 #include "logger.h"
+#include "constants.h"
 
 #define SIZE(X) sizeof(X) / sizeof(X[0])
 
@@ -16,16 +17,6 @@ typedef union {
     JNIEnv *env;
     void *venv;
 } UnionJNIEnvToVoid;
-
-
-static jfloat JniVersion() {
-    return 1.4;
-}
-
-static const char *constants = "com/projectdelta/chopper/util/Constants";
-static JNINativeMethod constants_methods[] = {
-    {"nativeGetJniVersion", "()F", (void *) JniVersion},
-};
 
 
 /*
@@ -53,7 +44,11 @@ static int registerNativeMethods(JNIEnv *env, const char *className, JNINativeMe
  * returns JNI_TRUE on success.
  */
 static int registerNatives(JNIEnv *env) {
-    if (!registerNativeMethods(env, constants, constants_methods, SIZE(constants_methods))) {
+    if (!registerNativeMethods(env,
+                               ChopperJNI::constants,
+                               ChopperJNI::constants_methods,
+                               SIZE(ChopperJNI::constants_methods))
+                               ) {
         return JNI_FALSE;
     }
     return JNI_TRUE;
