@@ -6,8 +6,10 @@ import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import com.projectdelta.chopper.ui.exception.ExceptionActivity
+import com.projectdelta.chopper.util.Constants.Companion.CHOPPER_LIBS
 import com.projectdelta.chopper.util.system.CustomDebugTree
 import com.projectdelta.chopper.util.system.lang.ExceptionListener
+import com.projectdelta.chopper.util.system.lang.LibraryLoader
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -66,6 +68,12 @@ class ChopperApplication : Application(), ExceptionListener {
 		}
 		Thread.setDefaultUncaughtExceptionHandler { t, e ->
 			uncaughtException(t, e)
+		}
+	}
+
+	companion object{
+		init {
+			LibraryLoader.load(CHOPPER_LIBS)
 		}
 	}
 }

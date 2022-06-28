@@ -21,7 +21,6 @@ object NetworkModule {
 	}
 
 	@EntryPoint
-	@Singleton
 	@InstallIn(SingletonComponent::class)
 	interface ConnectivityManagerProviderEntryPoint {
 		fun connectivityManager(): ConnectivityManager

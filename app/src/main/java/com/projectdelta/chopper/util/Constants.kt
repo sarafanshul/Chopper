@@ -6,16 +6,24 @@ import androidx.annotation.Keep
 @Suppress("KotlinJniMissingFunction") // AS Sync issue :/
 class Constants {
 
-	val coreJniVersion : Float
-		get() = nativeGetJniVersion()
+	companion object {
 
-	val openCVVersion : String
-		get() = nativeGetOpenCVVersion()
+		const val CHOPPER_LIBS = "chopper"
 
-	@Keep
-	private external fun nativeGetJniVersion() : Float
+		val coreJniVersion: Float
+			get() = nativeGetJniVersion()
 
-	@Keep
-	private external fun nativeGetOpenCVVersion() : String
+		val openCVVersion: String
+			get() = nativeGetOpenCVVersion()
+
+		@Keep
+		@JvmStatic
+		private external fun nativeGetJniVersion(): Float
+
+		@Keep
+		@JvmStatic
+		private external fun nativeGetOpenCVVersion(): String
+
+	}
 
 }

@@ -26,7 +26,6 @@ object PreferencesModule {
 	}
 
 	@EntryPoint
-	@Singleton
 	@InstallIn(SingletonComponent::class)
 	interface PreferenceManagerProviderEntryPoint {
 		fun providesPreferenceManager(): PreferencesManager

@@ -20,7 +20,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
 		setContentView(binding.root)
 
 		// Example of a call to a native method
-		binding.sampleText.text = Constants().coreJniVersion.toString() + "  " + Constants().openCVVersion
+		binding.sampleText.text = Constants.coreJniVersion.toString() + "  " + Constants.openCVVersion
 
 	}
 
@@ -29,10 +29,4 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
 		Timber.d("Network change : online : $isNetworkAvailable")
 	}
 
-	companion object {
-		// Used to load the 'chopper' library on application startup.
-		init {
-			System.loadLibrary("chopper")
-		}
-	}
 }

@@ -9,6 +9,7 @@
 #include <string>
 #include "logger.h"
 #include "constants.h"
+#include "ImageSteg.h"
 
 #define SIZE(X) sizeof(X) / sizeof(X[0])
 
@@ -44,11 +45,16 @@ static int registerNativeMethods(JNIEnv *env, const char *className, JNINativeMe
  * returns JNI_TRUE on success.
  */
 static int registerNatives(JNIEnv *env) {
-    if (!registerNativeMethods(env,
-                               ChopperJNI::constants,
+    if (!registerNativeMethods(env, ChopperJNI::constants,
                                ChopperJNI::constants_methods,
                                SIZE(ChopperJNI::constants_methods))
-                               ) {
+            ) {
+        return JNI_FALSE;
+    }
+    if (!registerNativeMethods(env, ChopperJNI::image_steg_class,
+                               ChopperJNI::image_steg_methods,
+                               SIZE(ChopperJNI::image_steg_methods))
+            ) {
         return JNI_FALSE;
     }
     return JNI_TRUE;

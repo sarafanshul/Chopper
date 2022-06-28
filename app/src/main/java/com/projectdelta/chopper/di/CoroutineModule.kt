@@ -6,6 +6,7 @@ import com.projectdelta.chopper.di.qualifiers.MainDispatcher
 import com.projectdelta.chopper.di.qualifiers.MainImmidiateDispatcher
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
@@ -25,6 +26,12 @@ object CoroutineModule {
 	@Provides
 	fun provideIODispatcher() : CoroutineDispatcher {
 		return Dispatchers.IO
+	}
+
+	@EntryPoint
+	@InstallIn(SingletonComponent::class)
+	interface IODispatcherProviderEntryPoint{
+		@IODispatcher fun providesIODispatcher() : CoroutineDispatcher
 	}
 
 	@MainDispatcher
