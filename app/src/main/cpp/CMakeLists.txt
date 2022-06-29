@@ -9,8 +9,25 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("chopper")
 
+# Need to create the .dylib and .jnilib files in order to run JUnit tests
+# https://sureshjoshi.com/mobile/android-junit-native-libraries
+#if (APPLE)
+#    # Ensure jni.h is found
+#
+#    set(M_JAVA_HOME "~/Library/Java/JavaVirtualMachines/corretto-1.8.0_312/Contents/Home")
+#
+#    set(JAVA_AWT_LIBRARY "${M_JAVA_HOME}/lib/libjawt.so")
+#    set(JAVA_JVM_LIBRARY "${M_JAVA_HOME}/lib/server/libjvm.so")
+#    set(JAVA_INCLUDE_PATH2 "${M_JAVA_HOME}/include/darwin")
+#    set(JAVA_AWT_INCLUDE_PATH "${M_JAVA_HOME}/include")
+#    set(JAVA_INCLUDE_PATH "${M_JAVA_HOME}/include")
+#
+#    find_package(JNI REQUIRED)
+#    include_directories(${JAVA_INCLUDE_PATH})
+#endif()
+
 # configure opencv.
-set(OPENCV_DIRS ${CMAKE_SOURCE_DIR}/opencv)
+set(OPENCV_DIRS ${CMAKE_SOURCE_DIR}/../../../../third_party/opencv)
 
 include_directories(${OPENCV_DIRS}/include)
 
@@ -59,12 +76,12 @@ add_library( # Sets the name of the library.
 # you want to add. CMake verifies that the library exists before
 # completing its build.
 
-find_library( # Sets the name of the path variable.
-        log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        log)
+#find_library( # Sets the name of the path variable.
+#        log-lib
+#
+#        # Specifies the name of the NDK library that
+#        # you want CMake to locate.
+#        log)
 
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
@@ -75,7 +92,7 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib}
+#        ${log-lib}
 
         #opencv
         ${opencv_libs_names}

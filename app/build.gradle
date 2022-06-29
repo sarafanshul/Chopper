@@ -1,3 +1,4 @@
+import org.gradle.internal.os.OperatingSystem
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -117,3 +118,36 @@ detekt {
     buildUponDefaultConfig = true
     parallel = true
 }
+
+def osxDir = projectDir.absolutePath + '/.externalNativeBuild/cmake/debug/osx/'
+
+task createBuildDir() {
+    def folder = new File(osxDir)
+    if (!folder.exists()) {
+        folder.mkdirs()
+    }
+}
+
+task runCMake(type: Exec) {
+    dependsOn createBuildDir
+    workingDir osxDir // Jump to future build directory
+    commandLine '/usr/local/bin/cmake' // Path from HomeBrew installation
+    args projectDir.absolutePath+'/src/main/cpp/' // Relative path for out-of-source builds
+}
+
+task runMake(type: Exec) {
+    dependsOn runCMake
+    workingDir osxDir
+    commandLine 'make'
+}
+
+// https://sureshjoshi.com/mobile/android-junit-native-libraries
+//project.afterEvaluate {
+//    // Not sure how much of a hack this is - but it allows CMake/SWIG to run before Android Studio
+//    // complains about missing generated files
+//    // TODO: Probably need a release hook too?
+//    javaPreCompileDebug.dependsOn externalNativeBuildDebug
+//    if (OperatingSystem.current().isMacOsX()) {
+//        javaPreCompileDebugAndroidTest.dependsOn runMake
+//    }
+//}
