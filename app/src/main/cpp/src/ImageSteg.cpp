@@ -3,16 +3,15 @@
 //
 
 #include "ImageSteg.h"
-//#include "opencv/cv.h"
-//#include "opencv/highgui.h"
-//#include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "logger.h"
+#include "constants.h"
 
 namespace ChopperJNI {
 
     using namespace cv;
     int Encode(const std::string& source, std::string blob, const std::string& out) {
+        ALOGD("input : %s", source.c_str());
         Mat image = imread(source);
         if(image.empty()) {
             ALOGE("Image Error");
@@ -145,6 +144,14 @@ namespace ChopperJNI {
         OUT:;
 
         return ret;
+    }
+
+    jint m_Encode(JNIEnv *env, jobject object, jstring s, jstring b, jstring o) {
+        return Encode(jString2String(env, s), jString2String(env, b), jString2String(env, o));
+    }
+
+    jstring m_Decode(JNIEnv *env, jobject object, jstring s) {
+        return env->NewStringUTF( Decode(jString2String(env, s)).c_str() );
     }
 
 }
