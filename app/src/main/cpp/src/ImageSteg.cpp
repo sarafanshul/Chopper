@@ -68,7 +68,7 @@ namespace ChopperJNI {
                     // if bit_count is 8 we pick the next char from the file and work on it
                     if(bit_count == 8) {
                         bit_count = 0;
-                        ch = blob[idx++];
+                        ch = blob[++idx];
 
                         // if EndOfFile(EOF) is encountered insert NULL char to the image
                         if(idx == length) {

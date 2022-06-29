@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(
 
     fun encode(source: String, blob: String, out: String){
         viewModelScope.launch(dispatcher) {
-            val ret = ImageSteganography.encode(source, " " + blob + " ", out) // FIXME SOME FLAW in logic , add padding
+            val ret = ImageSteganography.encode(source, blob, out)
             Timber.d("Encode Completed, res : $ret")
         }
     }
